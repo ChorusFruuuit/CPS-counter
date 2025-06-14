@@ -20,11 +20,14 @@ win.geometry(windowGeometry)
 # line2 = canvas.create_line(APP_WIDTH / 2, 0, APP_WIDTH / 2, APP_HEIGHT, fill='#000000')
 
 clicks = []
-disp = Label(win, text='CPS: 0')
 
+disp = Label(win, text='CPS: 0')
 disp.pack()
 win.update()
 disp.place(x = APP_WIDTH / 2 - disp.winfo_width() / 2, y = APP_HEIGHT / 2 - disp.winfo_height() / 2)
+
+highest_cps = Label(win, text='Highest CPS: 0')
+highest_cps.pack()
 
 def upadte_display(display: Label):
 
@@ -42,6 +45,9 @@ def upadte_display(display: Label):
     w = display.winfo_width()
     h = display.winfo_height()
     display.place(x = APP_WIDTH / 2 - w / 2, y = APP_HEIGHT / 2 - h / 2)
+
+    if cps > int(highest_cps.cget('text').split(': ')[1]):
+        highest_cps.configure(text=f'Highest CPS: {cps}')
 
     if cps > 0:
         win.after(10, lambda: upadte_display(disp))
